@@ -1,0 +1,11 @@
+{
+  "name": "GlobalTS/cryptor",
+  "description": "cryptor",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "GlobalTS\\Cryptor\\": "src/Cryptor/"
+    }
+  }
+}
