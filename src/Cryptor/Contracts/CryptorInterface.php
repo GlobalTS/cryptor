@@ -26,4 +26,15 @@ interface CryptorInterface
      */
     public function decode($string);
     
+    /**
+     * @return string
+     */
+    public function getKey();
+    
+    /**
+     * @param string $key
+     * @return static
+     */
+    public function setKey($key);
+    
 }

@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: ivan
- * Date: 14.10.2014
- * Time: 0:55
+ * User: topot
+ * Date: 31.08.2017
+ * Time: 10:55
  */
 
 namespace GlobalTS\Cryptor;
@@ -24,12 +24,7 @@ class Cryptor implements CryptorInterface
     private $key;
     
     /**
-     * @var int
-     */
-    private $shortlinkLength;
-    
-    /**
-     * @var AES128
+     * @var CryptHandlerInterface
      */
     private $handler;
     
@@ -37,13 +32,29 @@ class Cryptor implements CryptorInterface
      * Cryptor constructor.
      * @param CryptHandlerInterface $handler
      * @param string $key
-     * @param int $shortlinkLength
      */
-    public function __construct(CryptHandlerInterface $handler, $key, $shortlinkLength = 32)
+    public function __construct(CryptHandlerInterface $handler, $key = 'default-key')
     {
-        $this->handler         = $handler;
-        $this->key             = $key;
-        $this->shortlinkLength = $shortlinkLength;
+        $this->handler = $handler;
+        $this->key     = $key;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+    
+    /**
+     * @param string $key
+     * @return Cryptor
+     */
+    public function setKey($key)
+    {
+        $this->key = $key;
+        return $this;
     }
     
     /**
@@ -97,28 +108,6 @@ class Cryptor implements CryptorInterface
         $fullCipherBlock = str_replace('^', '', $fullCipherBlock);
         
         return $fullCipherBlock;
-    }
-    
-    /**
-     * @return string
-     */
-    public function generateRandomString()
-    {
-        $arr = [
-            'a', 'b', 'c', 'd', 'e', 'f',
-            'g', 'h', 'i', 'j', 'k', 'l',
-            'm', 'n', 'o', 'p', 'r', 's',
-            't', 'u', 'v', 'x', 'y', 'z',
-            '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', '0'];
-        
-        $result = "";
-        for ($i = 0; $i < $this->shortlinkLength; $i++) {
-            // Вычисляем случайный индекс массива
-            $index  = rand(0, count($arr) - 1);
-            $result .= $arr[$index];
-        }
-        return $result;
     }
     
 }
