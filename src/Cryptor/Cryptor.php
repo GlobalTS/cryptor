@@ -59,11 +59,15 @@ class Cryptor implements CryptorInterface
     
     /**
      * @param string $string
+     * @param string $key
      * @return string
      */
-    public function encode($string)
+    public function encode($string, $key = null)
     {
-        $key             = $this->handler->makeKey($this->key);
+        if (is_null($key)) {
+            $key = $this->key;
+        }
+        $_key            = $this->handler->makeKey($key);
         $newBlock        = str_replace('^', '~', $string);
         $len             = strlen($newBlock);
         $blockPart       = '';
@@ -71,7 +75,7 @@ class Cryptor implements CryptorInterface
         for ($i = 0; $i < $len; $i++) {
             $blockPart .= $newBlock[$i];
             if (strlen($blockPart) == 16) {
-                $fullCipherBlock .= $this->handler->blockEncrypt($blockPart, $key);
+                $fullCipherBlock .= $this->handler->blockEncrypt($blockPart, $_key);
                 $blockPart       = '';
             }
         }
@@ -82,18 +86,22 @@ class Cryptor implements CryptorInterface
                 $addStr .= '^';
             }
             $blockPart       .= $addStr;
-            $fullCipherBlock .= $this->handler->blockEncrypt($blockPart, $key);
+            $fullCipherBlock .= $this->handler->blockEncrypt($blockPart, $_key);
         }
         return $this->handler->toHexString($fullCipherBlock);
     }
     
     /**
      * @param string $string
+     * @param string $key
      * @return string
      */
-    public function decode($string)
+    public function decode($string, $key = null)
     {
-        $key             = $this->handler->makeKey($this->key);
+        if (is_null($key)) {
+            $key = $this->key;
+        }
+        $_key            = $this->handler->makeKey($key);
         $newBlock        = $this->handler->fromHexString($string);
         $len             = strlen($newBlock);
         $blockPart       = '';
@@ -101,7 +109,7 @@ class Cryptor implements CryptorInterface
         for ($i = 0; $i < $len; $i++) {
             $blockPart .= $newBlock[$i];
             if (strlen($blockPart) == 16) {
-                $fullCipherBlock .= $this->handler->blockDecrypt($blockPart, $key);
+                $fullCipherBlock .= $this->handler->blockDecrypt($blockPart, $_key);
                 $blockPart       = '';
             }
         }

@@ -16,15 +16,17 @@ interface CryptorInterface
 {
     /**
      * @param string $string
+     * @param string $key
      * @return string
      */
-    public function encode($string);
+    public function encode($string, $key = null);
     
     /**
      * @param string $string
+     * @param string $key
      * @return string
      */
-    public function decode($string);
+    public function decode($string, $key = null);
     
     /**
      * @return string
