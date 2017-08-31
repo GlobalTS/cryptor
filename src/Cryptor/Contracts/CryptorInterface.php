@@ -9,10 +9,10 @@
 namespace GlobalTS\Cryptor\Contracts;
 
 /**
- * Interface CryptInterface
+ * Interface CryptorInterface
  * @package GlobalTS\Cryptor\Contracts
  */
-interface CryptInterface
+interface CryptorInterface
 {
     /**
      * @param string $string

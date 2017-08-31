@@ -9,14 +9,14 @@
 namespace GlobalTS\Cryptor;
 
 use GlobalTS\Cryptor\Contracts\CryptHandlerInterface;
-use GlobalTS\Cryptor\Contracts\CryptInterface;
+use GlobalTS\Cryptor\Contracts\CryptorInterface;
 
 
 /**
- * Class CryptService
+ * Class Cryptor
  * @package GlobalTS\Cryptor
  */
-class CryptService implements CryptInterface
+class Cryptor implements CryptorInterface
 {
     /**
      * @var string
@@ -34,7 +34,7 @@ class CryptService implements CryptInterface
     private $handler;
     
     /**
-     * CryptService constructor.
+     * Cryptor constructor.
      * @param CryptHandlerInterface $handler
      * @param string $key
      * @param int $shortlinkLength
